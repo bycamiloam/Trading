@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio · Semana 1 · Camilo Molina</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #0d0f14;
+      --surf:    #131620;
+      --surf2:   #181c2a;
+      --border:  #1e2333;
+      --text:    #d1d4dc;
+      --muted:   #5d6470;
+      --green:   #26a69a;
+      --red:     #ef5350;
+      --amber:   #ffb74d;
+      --blue:    #2962ff;
+      --cyan:    #00bcd4;
+      --lime:    #76ff03;
+      --purple:  #e040fb;
+      --radius:  10px;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter','Segoe UI',sans-serif; min-height: 100vh; }
+
+    /* ── Header ── */
+    header {
+      padding: 18px 24px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    header h1 { font-size: 1.1rem; font-weight: 700; color: #e0e3ef; }
+    .h-sub { font-size: 0.75rem; color: var(--muted); }
+    .tag { font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; letter-spacing:.05em; }
+    .tag-etf   { background:rgba(41,98,255,.18);  color:#7baeff; }
+    .tag-stock { background:rgba(38,166,154,.18); color:#4dd0c4; }
+    .tag-short { background:rgba(239,83,80,.18);  color:#ff6b6b; }
+
+    /* ── Ticker tape ── */
+    .ticker-wrap { border-bottom: 1px solid var(--border); background: var(--surf); }
+    .tradingview-widget-container { width:100%; }
+
+    /* ════════════════ SUMMARY ════════════════ */
+    .summary {
+      margin: 20px 20px 0;
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .summary-top {
+      display: grid;
+      grid-template-columns: 220px 1fr 280px;
+      gap: 0;
+    }
+    @media(max-width:900px){ .summary-top { grid-template-columns: 1fr; } }
+
+    /* Metrics */
+    .metrics-col {
+      padding: 18px 20px;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .metric-block {}
+    .metric-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing:.07em; margin-bottom:3px; }
+    .metric-value { font-size: 1.3rem; font-weight: 700; color: #e0e3ef; line-height:1; }
+    .metric-value.sm { font-size: 1rem; }
+    .metric-delta { font-size: 0.75rem; margin-top:2px; }
+    .metric-warn  { font-size: 0.7rem; color: var(--amber); margin-top:2px; }
+    .up   { color: var(--green); }
+    .down { color: var(--red); }
+    .warn { color: var(--amber); }
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* Sparkline */
+    .spark-col {
+      padding: 18px 22px;
+      border-right: 1px solid var(--border);
+    }
+    .spark-title { font-size: 0.7rem; color: var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:12px; }
+    .spark-svg { width:100%; height:90px; display:block; }
+    .spark-meta {
+      display: flex; justify-content: space-between;
+      margin-top: 6px;
+    }
+    .spark-meta span { font-size: 0.65rem; text-align:center; flex:1; }
+    .spark-date  { color: var(--muted); display:block; }
+    .spark-pct   { display:block; font-weight:600; }
+
+    /* P&L bars */
+    .pl-col { padding: 18px 20px; }
+    .pl-title { font-size: 0.7rem; color: var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:12px; }
+    .pl-row {
+      display: grid;
+      grid-template-columns: 36px 1fr 64px 50px;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+    .pl-ticker { font-size: 0.72rem; font-weight:700; color:#e0e3ef; }
+    .pl-bar-track { background: var(--border); border-radius: 3px; height: 6px; overflow:hidden; }
+    .pl-bar { height: 6px; border-radius: 3px; transition: width .3s; }
+    .pl-bar.pos { background: var(--green); }
+    .pl-bar.neg { background: var(--red); }
+    .pl-amount { font-size: 0.68rem; font-weight:600; text-align:right; }
+    .pl-pct    { font-size: 0.65rem; color: var(--muted); text-align:right; }
+
+    /* Overtrading alert */
+    .alert-bar {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 11px 20px;
+      background: rgba(255,183,77,.07);
+      border-top: 1px solid rgba(255,183,77,.2);
+      font-size: 0.72rem; color: var(--amber);
+    }
+    .alert-bar .icon { font-size: 0.85rem; flex-shrink:0; margin-top:1px; }
+    .alert-bar strong { color: #ffd54f; }
+
+    /* Transactions mini table */
+    .tx-section {
+      margin: 16px 20px 0;
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .tx-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer; user-select:none;
+    }
+    .tx-header h3 { font-size:0.8rem; font-weight:600; color:#e0e3ef; }
+    .tx-header .tx-count { font-size:0.68rem; color:var(--muted); }
+    .tx-table { width:100%; border-collapse:collapse; font-size:0.72rem; }
+    .tx-table th { padding:8px 16px; text-align:left; color:var(--muted); font-weight:500; font-size:0.65rem; text-transform:uppercase; letter-spacing:.05em; border-bottom:1px solid var(--border); }
+    .tx-table td { padding:7px 16px; border-bottom:1px solid var(--border); }
+    .tx-table tr:last-child td { border-bottom:none; }
+    .tx-table tr.noise td { opacity:.55; }
+    .tx-table tr.noise td:first-child::before { content:'⚠ '; color:var(--amber); }
+    .badge-buy   { background:rgba(38,166,154,.18); color:#4dd0c4; padding:1px 7px; border-radius:10px; font-size:0.6rem; font-weight:600; }
+    .badge-short { background:rgba(239,83,80,.18);  color:#ff6b6b; padding:1px 7px; border-radius:10px; font-size:0.6rem; font-weight:600; }
+    .badge-sell  { background:rgba(255,183,77,.18); color:#ffb74d; padding:1px 7px; border-radius:10px; font-size:0.6rem; font-weight:600; }
+    .badge-na    { background:rgba(93,100,112,.18); color:var(--muted); padding:1px 7px; border-radius:10px; font-size:0.6rem; font-weight:600; }
+
+    /* ════════════════ GRID ════════════════ */
+    .section-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 18px 20px 8px;
+    }
+    .section-row h2 { font-size:0.68rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+    .section-row hr  { flex:1; border:none; border-top:1px solid var(--border); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 16px;
+      padding: 0 20px;
+    }
+    .grid-1 { padding: 0 20px; }
+    @media(max-width:800px){ .grid-2 { grid-template-columns:1fr; } }
+
+    /* Card */
+    .card {
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .card-header {
+      display:flex; align-items:center; gap:10px;
+      padding: 13px 16px 9px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-color { width:3px; height:32px; border-radius:2px; flex-shrink:0; }
+    .c-voo  { background: var(--blue); }
+    .c-qqq  { background: var(--cyan); }
+    .c-nvda { background: var(--lime); }
+    .c-tsla { background: var(--purple); }
+    .c-pltr { background: var(--red); }
+
+    .card-title { font-size:1rem; font-weight:700; color:#e0e3ef; }
+    .card-name  { font-size:0.72rem; color:var(--muted); }
+    .card-pl { margin-left:auto; text-align:right; }
+    .card-pl .amount { font-size:0.82rem; font-weight:700; }
+    .card-pl .pct    { font-size:0.68rem; }
+
+    .cbadge { margin-left:6px; font-size:0.6rem; padding:2px 7px; border-radius:10px; font-weight:700; letter-spacing:.04em; }
+    .cbadge-etf   { background:rgba(41,98,255,.2);  color:#7baeff; }
+    .cbadge-ai    { background:rgba(118,255,3,.15); color:#b5ff57; }
+    .cbadge-mom   { background:rgba(224,64,251,.2); color:#f0a0ff; }
+    .cbadge-short { background:rgba(239,83,80,.2);  color:#ff6b6b; }
+
+    .card-body { display:grid; grid-template-columns:1fr 1fr; }
+    .card-body-3 { display:grid; grid-template-columns:1fr 1fr 260px; }
+    @media(max-width:1100px){ .card-body-3 { grid-template-columns:1fr 1fr; } }
+
+    .wpane { border-right:1px solid var(--border); min-height:320px; }
+    .wpane:last-child { border-right:none; }
+    .pane-label { font-size:0.6rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; padding:8px 12px 2px; }
+
+    /* PLTR position stats pane */
+    .pos-stats { padding:18px 20px; display:flex; flex-direction:column; gap:14px; }
+    .pos-stat-label { font-size:0.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:2px; }
+    .pos-stat-value { font-size:0.9rem; font-weight:700; color:#e0e3ef; }
+    .pos-stat-value.red { color:var(--red); }
+    .pos-stat-value.amber { color:var(--amber); }
+    .pos-alert {
+      margin-top:auto;
+      padding:9px 12px;
+      background:rgba(239,83,80,.08);
+      border:1px solid rgba(239,83,80,.25);
+      border-radius:6px;
+      font-size:0.68rem;
+      color:#ff8a80;
+      line-height:1.5;
+    }
+
+    /* Footer */
+    footer {
+      text-align:center; padding:14px;
+      font-size:0.68rem; color:var(--muted);
+      border-top:1px solid var(--border);
+      margin-top:24px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ══════════════════════════════════════════════════════════ -->
+<header>
+  <div>
+    <h1>Portfolio Dashboard</h1>
+    <div class="h-sub">Camilo Molina &nbsp;·&nbsp; Semana 1 &nbsp;·&nbsp; Mayo 2026</div>
+  </div>
+  <span class="tag tag-etf">ETF BASE</span>
+  <span class="tag tag-stock">GROWTH</span>
+  <span class="tag tag-short">SHORT</span>
+</header>
+
+<!-- ═══ TICKER TAPE ═══════════════════════════════════════════════════════ -->
+<div class="ticker-wrap">
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        { "proName": "AMEX:VOO",    "title": "VOO" },
+        { "proName": "NASDAQ:QQQ",  "title": "QQQ" },
+        { "proName": "NASDAQ:NVDA", "title": "NVDA" },
+        { "proName": "NASDAQ:TSLA", "title": "TSLA" },
+        { "proName": "NASDAQ:PLTR", "title": "PLTR" }
+      ],
+      "showSymbolLogo": true,
+      "isTransparent": true,
+      "displayMode": "adaptive",
+      "colorTheme": "dark",
+      "locale": "en"
+    }
+    </script>
+  </div>
+</div>
+
+<!-- ═══ SUMMARY ══════════════════════════════════════════════════════════ -->
+<div class="summary">
+  <div class="summary-top">
+
+    <!-- Métricas clave -->
+    <div class="metrics-col">
+      <div class="metric-block">
+        <div class="metric-label">Net Worth</div>
+        <div class="metric-value">$10,019.38</div>
+        <div class="metric-delta up">+$19.38 &nbsp;·&nbsp; +0.19% total</div>
+      </div>
+      <hr class="divider">
+      <div class="metric-block">
+        <div class="metric-label">Hoy (5/8)</div>
+        <div class="metric-value up">+2.13%</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Mejor día</div>
+        <div class="metric-value sm up">5/8 &nbsp;+2.13%</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Peor día</div>
+        <div class="metric-value sm down">5/7 &nbsp;-1.89%</div>
+      </div>
+      <hr class="divider">
+      <div class="metric-block">
+        <div class="metric-label">Cash prestado</div>
+        <div class="metric-value sm warn">$3,301.85</div>
+        <div class="metric-warn">margen activo — amplifica pérdidas</div>
+      </div>
+      <div class="metric-block">
+        <div class="metric-label">Short reserve</div>
+        <div class="metric-value sm">$2,134.43</div>
+      </div>
+    </div>
+
+    <!-- Sparkline semana -->
+    <div class="spark-col">
+      <div class="spark-title">Curva de rendimiento — Semana 1</div>
+      <svg class="spark-svg" viewBox="0 0 420 90" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="g-loss" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ef5350" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#ef5350" stop-opacity="0.03"/>
+          </linearGradient>
+          <linearGradient id="g-gain" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#26a69a" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#26a69a" stop-opacity="0.05"/>
+          </linearGradient>
+        </defs>
+        <!-- Area bajo la curva -->
+        <polygon points="10,13.4 115,20.3 220,41.5 325,80 402,10 402,85 10,85"
+                 fill="url(#g-loss)" />
+        <!-- Área de ganancia (último segmento) -->
+        <polygon points="325,80 402,10 402,13.4 325,13.4"
+                 fill="url(#g-gain)" />
+        <!-- Línea de cero (0%) en y=13.4 -->
+        <line x1="10" y1="13.4" x2="402" y2="13.4"
+              stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="5,4"/>
+        <text x="405" y="16" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">0%</text>
+        <!-- Línea de datos -->
+        <polyline points="10,13.4 115,20.3 220,41.5 325,80 402,10"
+                  fill="none" stroke="#ffb74d" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Puntos de datos -->
+        <circle cx="10"  cy="13.4" r="4" fill="#ffb74d" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="115" cy="20.3" r="4" fill="#ef5350" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="220" cy="41.5" r="4" fill="#ef5350" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="325" cy="80"   r="4" fill="#ef5350" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="402" cy="10"   r="5" fill="#26a69a" stroke="#0d0f14" stroke-width="2"/>
+      </svg>
+      <div class="spark-meta">
+        <span><span class="spark-date">5/4</span><span class="spark-pct" style="color:var(--muted)">0.00%</span></span>
+        <span><span class="spark-date">5/5</span><span class="spark-pct down">-0.21%</span></span>
+        <span><span class="spark-date">5/6</span><span class="spark-pct down">-0.78%</span></span>
+        <span><span class="spark-date">5/7</span><span class="spark-pct down">-1.89%</span></span>
+        <span><span class="spark-date">5/8</span><span class="spark-pct up">+0.19%</span></span>
+      </div>
+    </div>
+
+    <!-- P&L por posición -->
+    <div class="pl-col">
+      <div class="pl-title">P&L por posición</div>
+
+      <div class="pl-row">
+        <div class="pl-ticker">TSLA</div>
+        <div class="pl-bar-track"><div class="pl-bar pos" style="width:100%"></div></div>
+        <div class="pl-amount up">+$100.10</div>
+        <div class="pl-pct up">+4.90%</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-ticker">QQQ</div>
+        <div class="pl-bar-track"><div class="pl-bar pos" style="width:80%"></div></div>
+        <div class="pl-amount up">+$80.27</div>
+        <div class="pl-pct up">+2.31%</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-ticker">NVDA</div>
+        <div class="pl-bar-track"><div class="pl-bar pos" style="width:59%"></div></div>
+        <div class="pl-amount up">+$59.04</div>
+        <div class="pl-pct up">+1.39%</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-ticker">VOO</div>
+        <div class="pl-bar-track"><div class="pl-bar pos" style="width:4%"></div></div>
+        <div class="pl-amount up">+$4.05</div>
+        <div class="pl-pct up">+0.12%</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-ticker">PLTR</div>
+        <div class="pl-bar-track"><div class="pl-bar neg" style="width:70%"></div></div>
+        <div class="pl-amount down">-$70.37</div>
+        <div class="pl-pct down">-3.30%</div>
+      </div>
+
+      <hr class="divider" style="margin:12px 0 10px">
+      <div class="pl-row" style="margin-bottom:0">
+        <div class="pl-ticker" style="font-size:.65rem;color:var(--muted)">NET</div>
+        <div></div>
+        <div class="pl-amount up">+$19.38</div>
+        <div class="pl-pct up">+0.19%</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Alerta overtrading -->
+  <div class="alert-bar">
+    <span class="icon">⚠</span>
+    <span>
+      <strong>8 transacciones en 4 días.</strong>
+      El short de PLTR se construyó en 3 órdenes separadas en lugar de una entrada limpia.
+      QQQ comprado y vendido el mismo día (5/6) generó ~$8.70 brutos — fricción sin valor.
+      La semana validó la tesis: <strong>más operaciones ≠ más retorno.</strong>
+    </span>
+  </div>
+</div>
+
+<!-- ═══ TRANSACCIONES ════════════════════════════════════════════════════ -->
+<div class="tx-section">
+  <div class="tx-header">
+    <h3>Registro de transacciones — Semana 1</h3>
+    <span class="tx-count">9 órdenes · 8 ejecutadas · 3 con ruido</span>
+  </div>
+  <table class="tx-table">
+    <thead>
+      <tr>
+        <th>Fecha / Hora</th>
+        <th>Activo</th>
+        <th>Tipo</th>
+        <th>Acciones</th>
+        <th>Precio</th>
+        <th>Valor</th>
+        <th>Nota</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5/8 · 10:17a</td>
+        <td><strong>VOO</strong></td>
+        <td><span class="badge-buy">BUY</span></td>
+        <td>5</td>
+        <td>$677.23</td>
+        <td>$3,386.15</td>
+        <td style="color:var(--green)">Ancla del portafolio</td>
+      </tr>
+      <tr>
+        <td>5/7 · 12:59p</td>
+        <td><strong>TSLA</strong></td>
+        <td><span class="badge-buy">BUY</span></td>
+        <td>5</td>
+        <td>$408.33</td>
+        <td>$2,041.65</td>
+        <td style="color:var(--green)">Mejor P&L de la semana</td>
+      </tr>
+      <tr>
+        <td>5/7 · 12:58p</td>
+        <td><strong>QQQ</strong></td>
+        <td><span class="badge-buy">BUY</span></td>
+        <td>5</td>
+        <td>$695.01</td>
+        <td>$3,475.05</td>
+        <td style="color:var(--green)">Posición base ETF</td>
+      </tr>
+      <tr>
+        <td>5/7 · 12:58p</td>
+        <td><strong>NVDA</strong></td>
+        <td><span class="badge-buy">BUY</span></td>
+        <td>20</td>
+        <td>$212.27</td>
+        <td>$4,245.40</td>
+        <td style="color:var(--green)">Convicción clara</td>
+      </tr>
+      <tr class="noise">
+        <td>5/6 · 12:11p</td>
+        <td><strong>QQQ</strong></td>
+        <td><span class="badge-sell">SELL</span></td>
+        <td>2</td>
+        <td>$692.66</td>
+        <td>$1,385.32</td>
+        <td style="color:var(--amber)">Intraday — ~$8.70 brutos</td>
+      </tr>
+      <tr class="noise">
+        <td>5/6 · 10:23a</td>
+        <td><strong>QQQ</strong></td>
+        <td><span class="badge-buy">BUY</span></td>
+        <td>2</td>
+        <td>$688.31</td>
+        <td>$1,376.62</td>
+        <td style="color:var(--amber)">Intraday — vendido mismo día</td>
+      </tr>
+      <tr class="noise">
+        <td>5/6 · 9:39a</td>
+        <td><strong>PLTR</strong></td>
+        <td><span class="badge-short">SHORT</span></td>
+        <td>15</td>
+        <td>$133.28</td>
+        <td>$1,999.20</td>
+        <td style="color:var(--amber)">3ª orden para la misma tesis</td>
+      </tr>
+      <tr>
+        <td>5/6 · 9:28a</td>
+        <td><strong>PLTR</strong></td>
+        <td><span class="badge-na">NO EJEC.</span></td>
+        <td>10</td>
+        <td>N/A</td>
+        <td>—</td>
+        <td style="color:var(--muted)">Orden no ejecutada</td>
+      </tr>
+      <tr>
+        <td>5/5 · 3:01p</td>
+        <td><strong>PLTR</strong></td>
+        <td><span class="badge-short">SHORT</span></td>
+        <td>1</td>
+        <td>$135.31</td>
+        <td>$135.31</td>
+        <td style="color:var(--text)">Entrada de prueba</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ ETF BASE ══════════════════════════════════════════════════════════ -->
+<div class="section-row"><h2>ETF Base</h2><hr></div>
+<div class="grid-2">
+
+  <!-- VOO -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-color c-voo"></div>
+      <div>
+        <div class="card-title">VOO <span class="cbadge cbadge-etf">ETF</span></div>
+        <div class="card-name">Vanguard S&P 500 · 5 acciones</div>
+      </div>
+      <div class="card-pl">
+        <div class="amount up">+$4.05</div>
+        <div class="pct up">+0.12%</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="wpane">
+        <div class="pane-label">Gráfico 6M</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"AMEX:VOO","width":"100%","height":"290","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(41,98,255,1)","underLineColor":"rgba(41,98,255,0.2)","underLineBottomColor":"rgba(41,98,255,0)","isTransparent":true,"autosize":true}
+          </script>
+        </div>
+      </div>
+      <div class="wpane">
+        <div class="pane-label">Análisis técnico</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {"interval":"1D","width":"100%","height":"290","isTransparent":true,"symbol":"AMEX:VOO","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QQQ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-color c-qqq"></div>
+      <div>
+        <div class="card-title">QQQ <span class="cbadge cbadge-etf">ETF</span></div>
+        <div class="card-name">Invesco Nasdaq 100 · 5 acciones</div>
+      </div>
+      <div class="card-pl">
+        <div class="amount up">+$80.27</div>
+        <div class="pct up">+2.31%</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="wpane">
+        <div class="pane-label">Gráfico 6M</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"NASDAQ:QQQ","width":"100%","height":"290","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(0,188,212,1)","underLineColor":"rgba(0,188,212,0.2)","underLineBottomColor":"rgba(0,188,212,0)","isTransparent":true,"autosize":true}
+          </script>
+        </div>
+      </div>
+      <div class="wpane">
+        <div class="pane-label">Análisis técnico</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {"interval":"1D","width":"100%","height":"290","isTransparent":true,"symbol":"NASDAQ:QQQ","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ CRECIMIENTO ═══════════════════════════════════════════════════════ -->
+<div class="section-row"><h2>Crecimiento</h2><hr></div>
+<div class="grid-2">
+
+  <!-- NVDA -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-color c-nvda"></div>
+      <div>
+        <div class="card-title">NVDA <span class="cbadge cbadge-ai">IA INFRA</span></div>
+        <div class="card-name">Nvidia Corporation · 20 acciones</div>
+      </div>
+      <div class="card-pl">
+        <div class="amount up">+$59.04</div>
+        <div class="pct up">+1.39%</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="wpane">
+        <div class="pane-label">Gráfico 6M</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"NASDAQ:NVDA","width":"100%","height":"290","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(118,255,3,1)","underLineColor":"rgba(118,255,3,0.15)","underLineBottomColor":"rgba(118,255,3,0)","isTransparent":true,"autosize":true}
+          </script>
+        </div>
+      </div>
+      <div class="wpane">
+        <div class="pane-label">Análisis técnico</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {"interval":"1D","width":"100%","height":"290","isTransparent":true,"symbol":"NASDAQ:NVDA","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TSLA -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-color c-tsla"></div>
+      <div>
+        <div class="card-title">TSLA <span class="cbadge cbadge-mom">MOMENTUM</span></div>
+        <div class="card-name">Tesla Inc. · 5 acciones</div>
+      </div>
+      <div class="card-pl">
+        <div class="amount up">+$100.10</div>
+        <div class="pct up">+4.90% ★</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="wpane">
+        <div class="pane-label">Gráfico 6M</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"NASDAQ:TSLA","width":"100%","height":"290","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(224,64,251,1)","underLineColor":"rgba(224,64,251,0.15)","underLineBottomColor":"rgba(224,64,251,0)","isTransparent":true,"autosize":true}
+          </script>
+        </div>
+      </div>
+      <div class="wpane">
+        <div class="pane-label">Análisis técnico</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {"interval":"1D","width":"100%","height":"290","isTransparent":true,"symbol":"NASDAQ:TSLA","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ PLTR SHORT — FULL WIDTH ══════════════════════════════════════════ -->
+<div class="section-row"><h2>Cobertura · Short</h2><hr></div>
+<div class="grid-1">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-color c-pltr"></div>
+      <div>
+        <div class="card-title">PLTR <span class="cbadge cbadge-short">SHORT</span></div>
+        <div class="card-name">Palantir Technologies · 16 acciones short</div>
+      </div>
+      <div class="card-pl">
+        <div class="amount down">-$70.37</div>
+        <div class="pct down">-3.30% · posición en contra</div>
+      </div>
+    </div>
+    <div class="card-body-3">
+      <div class="wpane">
+        <div class="pane-label">Gráfico 6M</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+          {"symbol":"NASDAQ:PLTR","width":"100%","height":"290","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(239,83,80,1)","underLineColor":"rgba(239,83,80,0.15)","underLineBottomColor":"rgba(239,83,80,0)","isTransparent":true,"autosize":true}
+          </script>
+        </div>
+      </div>
+      <div class="wpane">
+        <div class="pane-label">Análisis técnico</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {"interval":"1D","width":"100%","height":"290","isTransparent":true,"symbol":"NASDAQ:PLTR","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          </script>
+        </div>
+      </div>
+      <div class="wpane">
+        <div class="pane-label">Estado de la posición</div>
+        <div class="pos-stats">
+          <div>
+            <div class="pos-stat-label">Entrada promedio</div>
+            <div class="pos-stat-value">$133.41</div>
+          </div>
+          <div>
+            <div class="pos-stat-label">Precio actual</div>
+            <div class="pos-stat-value red">$137.80</div>
+          </div>
+          <div>
+            <div class="pos-stat-label">P&L abierto</div>
+            <div class="pos-stat-value red">-$70.37 &nbsp;(-3.30%)</div>
+          </div>
+          <div>
+            <div class="pos-stat-label">Costo de posición</div>
+            <div class="pos-stat-value">$2,134.56</div>
+          </div>
+          <div>
+            <div class="pos-stat-label">Tesis</div>
+            <div class="pos-stat-value amber" style="font-size:.75rem;font-weight:500;line-height:1.4">Cobertura anticíclica<br>Defensa / gobierno</div>
+          </div>
+          <div class="pos-alert">
+            Stop sugerido: si PLTR supera <strong>$145</strong>, reevaluar la tesis o cerrar la posición para limitar pérdidas.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Data en tiempo real via TradingView &nbsp;·&nbsp; VOO · QQQ · NVDA · TSLA · PLTR &nbsp;·&nbsp; Semana 1 · Mayo 2026
+</footer>
+
+</body>
+</html>
