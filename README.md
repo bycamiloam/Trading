@@ -6,7 +6,8 @@ Repositorio personal de toma de decisiones de inversión. No es un sistema de se
 
 | Archivo | Descripción |
 |---------|-------------|
-| [`think.md`](think.md) | Tesis de inversión por activo + resumen semanal con análisis de operaciones |
+| [`tesis.md`](tesis.md) | Tesis de inversión completa del portafolio — macro, estructura por capas, tesis por posición, riesgos y métricas de éxito |
+| [`think.md`](think.md) | Tesis por activo + resúmenes semanales con análisis de operaciones |
 | [`dashboard.html`](dashboard.html) | Dashboard interactivo con widgets de TradingView en tiempo real |
 
 ## Portafolio actual
@@ -18,9 +19,10 @@ Repositorio personal de toma de decisiones de inversión. No es un sistema de se
 | **NVDA** | Acción Long | Convicción — infraestructura de IA | S1 |
 | **TSLA** | Acción Long | Momentum — EV + energía + FSD | S1 |
 | **AMD** | Acción Long | Chips IA — competencia directa a NVDA | S2 |
-| **CAT** | Acción Long | Industrial — infraestructura, diversificador sectorial | S2 |
+| **CSCO** | Acción Long | Tech defensivo — networking para IA | S3 |
 | **LLY** | Acción Long | Pharma — GLP-1/obesidad, mercado $150B+ | S2 |
 | **PLTR** | Acción Short | Cobertura anticíclica — defensa / gobierno | S1 |
+| ~~CAT~~ | ~~Long~~ | ~~Cerrada 5/13 con -$10.90~~ | ~~S2→S3~~ |
 
 ## Dashboard
 
@@ -61,17 +63,33 @@ La tesis central de este repositorio es que **la disciplina de no operar** es ta
 | Operaciones ejecutadas | 8 de 9 |
 | Operaciones con ruido | 3 — QQQ intraday + PLTR fragmentado en 3 órdenes |
 
-### Semana 2 (11 mayo 2026 · en curso)
+### Semana 2 (11–11 mayo 2026 · cerrada)
 
 | Métrica | Valor |
 |---------|-------|
-| Net Worth | $10,135.34 |
+| Net Worth cierre | $10,135.34 |
 | Retorno total | +1.35% (+$135.34) |
 | Mejor posición | TSLA +9.00% |
 | PLTR short | -2.61% (mejorando desde -3.30%) |
 | Operaciones S2 | 3 — limpias, 1 entrada por posición |
-| Margen activo | $7,116.03 (~41% del net worth) ⚠ |
-| Rank | #5 (subió desde #7) |
+| Margen activo | $7,116.03 (~70% del net worth) ⚠ |
+| Rank | #5 |
+
+### Semana 3 (12–15 mayo 2026 · en curso)
+
+| Métrica | Valor |
+|---------|-------|
+| Net Worth | $10,002.62 |
+| Retorno total | +0.03% (+$2.62) |
+| Pico alcanzado | $10,485.77 (+4.86%) el 5/14 |
+| Caída hoy | -4.61% — borró 3 días de ganancias |
+| Mejor posición | NVDA +6.15% |
+| Peor posición | AMD -8.45% |
+| PLTR short | -0.44% — casi en breakeven |
+| Operaciones S3 | 2 — CAT vendida, CSCO comprada |
+| Margen activo | $8,021.89 (~80% del net worth) 🚨 |
+| Buying Power | **-$172.52** 🚨 SOBRE-APALANCADO |
+| Rank | #4 |
 
 ---
 
