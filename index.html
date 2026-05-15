@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio · S2 · Camilo Molina</title>
+  <title>Portfolio · S3 · Camilo Molina</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -20,144 +20,154 @@
       --lime:   #76ff03;
       --purple: #e040fb;
       --orange: #ff7043;
-      --teal:   #00e5ff;
       --pink:   #f06292;
+      --teal2:  #00e5ff;
       --r: 10px;
     }
-    body { background:var(--bg); color:var(--text); font-family:'Inter','Segoe UI',sans-serif; min-height:100vh; }
+    body { background:var(--bg); color:var(--text); font-family:'Inter','Segoe UI',sans-serif; }
 
-    /* ── Header ── */
-    header { padding:16px 22px 12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-    header h1 { font-size:1.05rem; font-weight:700; color:#e0e3ef; }
-    .h-sub { font-size:0.72rem; color:var(--muted); }
-    .tag { font-size:0.62rem; padding:2px 8px; border-radius:20px; font-weight:600; letter-spacing:.05em; }
+    header { padding:14px 20px 10px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:11px; flex-wrap:wrap; }
+    header h1 { font-size:1rem; font-weight:700; color:#e0e3ef; }
+    .h-sub { font-size:.7rem; color:var(--muted); }
+    .tag { font-size:.6rem; padding:2px 7px; border-radius:20px; font-weight:600; letter-spacing:.05em; }
     .tag-etf   { background:rgba(41,98,255,.18);  color:#7baeff; }
     .tag-stock { background:rgba(38,166,154,.18); color:#4dd0c4; }
     .tag-short { background:rgba(239,83,80,.18);  color:#ff6b6b; }
-    .tag-new   { background:rgba(255,112,67,.18); color:#ff8a65; }
+    .tag-warn  { background:rgba(239,83,80,.3);   color:#ff4444; font-weight:700; animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
 
-    /* ── Ticker ── */
     .ticker-wrap { border-bottom:1px solid var(--border); background:var(--surf); }
     .tradingview-widget-container { width:100%; }
 
-    /* ════ SUMMARY ════ */
-    .summary { margin:18px 18px 0; background:var(--surf); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
-    .summary-top { display:grid; grid-template-columns:200px 1fr 300px; }
+    /* ═══ MARGIN CALL BANNER ═══ */
+    .margin-banner {
+      background: linear-gradient(90deg, rgba(239,83,80,.15), rgba(239,83,80,.05));
+      border-bottom: 2px solid rgba(239,83,80,.5);
+      padding: 10px 20px;
+      display: flex; align-items: center; gap: 14px;
+      font-size: .75rem; color: #ff6b6b;
+    }
+    .margin-banner .icon { font-size:1.1rem; }
+    .margin-banner strong { color:#ff4444; }
+
+    /* ═══ SUMMARY ═══ */
+    .summary { margin:16px 16px 0; background:var(--surf); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
+    .summary-top { display:grid; grid-template-columns:195px 1fr 295px; }
     @media(max-width:960px){ .summary-top{grid-template-columns:1fr;} }
 
-    .metrics-col { padding:16px 18px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:13px; }
-    .m-label { font-size:0.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:2px; }
-    .m-val { font-size:1.2rem; font-weight:700; color:#e0e3ef; line-height:1; }
-    .m-val.sm { font-size:.92rem; }
-    .m-sub { font-size:0.7rem; margin-top:2px; }
+    .metrics-col { padding:14px 16px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:11px; }
+    .m-label { font-size:.6rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:2px; }
+    .m-val { font-size:1.15rem; font-weight:700; color:#e0e3ef; line-height:1; }
+    .m-val.sm { font-size:.88rem; }
+    .m-val.lg { font-size:1.4rem; }
+    .m-sub { font-size:.68rem; margin-top:2px; }
     .up    { color:var(--green); }
     .down  { color:var(--red); }
     .warn  { color:var(--amber); }
+    .crit  { color:#ff4444; font-weight:700; }
     hr.div { border:none; border-top:1px solid var(--border); }
 
     /* Sparkline */
-    .spark-col { padding:16px 20px; border-right:1px solid var(--border); }
-    .spark-title { font-size:0.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:10px; }
-    .spark-svg { width:100%; height:88px; display:block; }
-    .spark-meta { display:flex; justify-content:space-between; margin-top:5px; }
-    .spark-meta span { font-size:.6rem; text-align:center; flex:1; }
+    .spark-col { padding:14px 18px; border-right:1px solid var(--border); }
+    .spark-title { font-size:.6rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:8px; }
+    .spark-svg { width:100%; height:86px; display:block; }
+    .spark-meta { display:flex; justify-content:space-between; margin-top:4px; }
+    .spark-meta span { font-size:.56rem; text-align:center; flex:1; }
     .spark-date { color:var(--muted); display:block; }
     .spark-pct  { display:block; font-weight:600; }
 
     /* P&L bars */
-    .pl-col { padding:16px 18px; }
-    .pl-title { font-size:0.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:10px; }
-    .pl-row { display:grid; grid-template-columns:36px 1fr 62px 46px; align-items:center; gap:6px; margin-bottom:7px; }
-    .pl-ticker { font-size:.7rem; font-weight:700; color:#e0e3ef; }
+    .pl-col { padding:14px 16px; }
+    .pl-title { font-size:.6rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:9px; }
+    .pl-row { display:grid; grid-template-columns:36px 1fr 60px 44px; align-items:center; gap:5px; margin-bottom:6px; }
+    .pl-ticker { font-size:.68rem; font-weight:700; color:#e0e3ef; }
     .pl-track { background:var(--border); border-radius:3px; height:5px; overflow:hidden; }
     .pl-bar { height:5px; border-radius:3px; }
     .pl-bar.pos { background:var(--green); }
     .pl-bar.neg { background:var(--red); }
-    .pl-amt { font-size:.65rem; font-weight:600; text-align:right; }
-    .pl-pct { font-size:.62rem; color:var(--muted); text-align:right; }
+    .pl-bar.crit-neg { background:#ff4444; }
+    .pl-amt { font-size:.63rem; font-weight:600; text-align:right; }
+    .pl-pct { font-size:.6rem; color:var(--muted); text-align:right; }
 
     /* Alert bars */
-    .alert-bar { display:flex; align-items:flex-start; gap:10px; padding:10px 18px; font-size:0.7rem; border-top:1px solid; }
+    .alert-bar { display:flex; align-items:flex-start; gap:9px; padding:9px 16px; font-size:.68rem; border-top:1px solid; }
     .alert-amber { background:rgba(255,183,77,.07); border-color:rgba(255,183,77,.2); color:var(--amber); }
-    .alert-red   { background:rgba(239,83,80,.07);  border-color:rgba(239,83,80,.2);  color:#ff8a80; }
     .alert-bar strong { color:#ffd54f; }
-    .alert-red strong { color:#ff6b6b; }
 
-    /* Transactions */
-    .tx-wrap { margin:14px 18px 0; background:var(--surf); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
-    .tx-head { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid var(--border); }
-    .tx-head h3 { font-size:.78rem; font-weight:600; color:#e0e3ef; }
-    .tx-head span { font-size:.65rem; color:var(--muted); }
-    .tx-table { width:100%; border-collapse:collapse; font-size:.7rem; }
-    .tx-table th { padding:7px 14px; text-align:left; color:var(--muted); font-weight:500; font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; border-bottom:1px solid var(--border); }
-    .tx-table td { padding:6px 14px; border-bottom:1px solid var(--border); }
+    /* TX table */
+    .tx-wrap { margin:12px 16px 0; background:var(--surf); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
+    .tx-head { display:flex; align-items:center; justify-content:space-between; padding:9px 14px; border-bottom:1px solid var(--border); }
+    .tx-head h3 { font-size:.75rem; font-weight:600; color:#e0e3ef; }
+    .tx-head span { font-size:.62rem; color:var(--muted); }
+    .tx-table { width:100%; border-collapse:collapse; font-size:.68rem; }
+    .tx-table th { padding:6px 12px; text-align:left; color:var(--muted); font-weight:500; font-size:.6rem; text-transform:uppercase; letter-spacing:.05em; border-bottom:1px solid var(--border); }
+    .tx-table td { padding:6px 12px; border-bottom:1px solid var(--border); }
     .tx-table tr:last-child td { border-bottom:none; }
-    .tx-table tr.noise td { opacity:.5; }
+    .tx-table tr.noise td { opacity:.45; }
     .tx-table tr.noise td:first-child::before { content:'⚠ '; color:var(--amber); }
-    .tx-table tr.new-s2 td:first-child { color:var(--orange); font-weight:600; }
-    .bb  { padding:1px 6px; border-radius:10px; font-size:.58rem; font-weight:700; }
+    .tx-table tr.s3 td:first-child { color:var(--teal2); font-weight:600; }
+    .tx-table tr.s2 td:first-child { color:var(--orange); }
+    .bb  { padding:1px 6px; border-radius:10px; font-size:.56rem; font-weight:700; }
     .bb-buy   { background:rgba(38,166,154,.18); color:#4dd0c4; }
     .bb-short { background:rgba(239,83,80,.18);  color:#ff6b6b; }
     .bb-sell  { background:rgba(255,183,77,.18); color:#ffb74d; }
     .bb-na    { background:rgba(93,100,112,.18); color:var(--muted); }
 
-    /* ════ GRID ════ */
-    .section-row { display:flex; align-items:center; gap:10px; padding:16px 18px 7px; }
-    .section-row h2 { font-size:.65rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; white-space:nowrap; }
+    /* Grid */
+    .section-row { display:flex; align-items:center; gap:9px; padding:14px 16px 6px; }
+    .section-row h2 { font-size:.63rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; white-space:nowrap; }
     .section-row hr { flex:1; border:none; border-top:1px solid var(--border); }
 
-    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; padding:0 18px; }
-    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:0 18px; }
-    .grid-1 { padding:0 18px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:0 16px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:0 16px; }
+    .grid-1 { padding:0 16px; }
     @media(max-width:900px){ .grid-2,.grid-3{grid-template-columns:1fr;} }
 
-    /* Card */
     .card { background:var(--surf); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
-    .card-header { display:flex; align-items:center; gap:9px; padding:12px 14px 8px; border-bottom:1px solid var(--border); }
-    .cc { width:3px; height:30px; border-radius:2px; flex-shrink:0; }
+    .card-header { display:flex; align-items:center; gap:8px; padding:10px 13px 7px; border-bottom:1px solid var(--border); }
+    .cc { width:3px; height:28px; border-radius:2px; flex-shrink:0; }
     .cc-voo  { background:var(--blue);   }
     .cc-qqq  { background:var(--cyan);   }
     .cc-nvda { background:var(--lime);   }
     .cc-tsla { background:var(--purple); }
     .cc-amd  { background:var(--orange); }
-    .cc-cat  { background:var(--teal);   }
+    .cc-csco { background:var(--teal2);  }
     .cc-lly  { background:var(--pink);   }
     .cc-pltr { background:var(--red);    }
 
-    .card-title { font-size:.95rem; font-weight:700; color:#e0e3ef; }
-    .card-name  { font-size:.68rem; color:var(--muted); }
+    .card-title { font-size:.9rem; font-weight:700; color:#e0e3ef; }
+    .card-name  { font-size:.65rem; color:var(--muted); }
     .card-pl { margin-left:auto; text-align:right; }
-    .card-pl .amt { font-size:.78rem; font-weight:700; }
-    .card-pl .pct { font-size:.65rem; }
+    .card-pl .amt { font-size:.75rem; font-weight:700; }
+    .card-pl .pct { font-size:.63rem; }
 
-    .cbadge { margin-left:5px; font-size:.58rem; padding:1px 6px; border-radius:10px; font-weight:700; letter-spacing:.04em; }
+    .cbadge { margin-left:4px; font-size:.56rem; padding:1px 5px; border-radius:10px; font-weight:700; letter-spacing:.04em; }
     .cb-etf   { background:rgba(41,98,255,.2);  color:#7baeff; }
     .cb-ai    { background:rgba(118,255,3,.15); color:#b5ff57; }
     .cb-mom   { background:rgba(224,64,251,.2); color:#f0a0ff; }
     .cb-semi  { background:rgba(255,112,67,.2); color:#ff8a65; }
-    .cb-ind   { background:rgba(0,229,255,.15); color:#80d8ff; }
+    .cb-net   { background:rgba(0,229,255,.15); color:#80d8ff; }
     .cb-pharma{ background:rgba(240,98,146,.2); color:#f8bbd0; }
     .cb-short { background:rgba(239,83,80,.2);  color:#ff6b6b; }
-    .cb-new   { background:rgba(255,112,67,.15);color:#ff8a65; font-size:.54rem; }
+    .cb-new   { background:rgba(0,229,255,.15); color:#80d8ff; font-size:.52rem; }
 
     .card-body   { display:grid; grid-template-columns:1fr 1fr; }
-    .card-body-3 { display:grid; grid-template-columns:1fr 1fr 240px; }
+    .card-body-3 { display:grid; grid-template-columns:1fr 1fr 230px; }
     @media(max-width:1100px){ .card-body-3{grid-template-columns:1fr 1fr;} }
 
-    .wpane { border-right:1px solid var(--border); min-height:290px; }
+    .wpane { border-right:1px solid var(--border); min-height:275px; }
     .wpane:last-child { border-right:none; }
-    .pane-label { font-size:.58rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; padding:7px 12px 1px; }
+    .pane-label { font-size:.57rem; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; padding:6px 11px 1px; }
 
-    /* PLTR stats pane */
-    .pos-stats { padding:16px 18px; display:flex; flex-direction:column; gap:12px; }
-    .ps-label { font-size:.6rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:2px; }
-    .ps-val { font-size:.88rem; font-weight:700; color:#e0e3ef; }
+    .pos-stats { padding:14px 16px; display:flex; flex-direction:column; gap:10px; }
+    .ps-label { font-size:.58rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:2px; }
+    .ps-val { font-size:.84rem; font-weight:700; color:#e0e3ef; }
     .ps-val.red { color:var(--red); }
     .ps-val.green { color:var(--green); }
-    .ps-val.amber { color:var(--amber); font-size:.74rem; font-weight:500; line-height:1.4; }
-    .ps-alert { margin-top:auto; padding:8px 11px; background:rgba(239,83,80,.08); border:1px solid rgba(239,83,80,.22); border-radius:6px; font-size:.65rem; color:#ff8a80; line-height:1.5; }
+    .ps-val.amber { color:var(--amber); font-size:.72rem; font-weight:500; line-height:1.4; }
+    .ps-alert { margin-top:auto; padding:7px 10px; background:rgba(38,166,154,.1); border:1px solid rgba(38,166,154,.25); border-radius:6px; font-size:.63rem; color:#4dd0c4; line-height:1.5; }
 
-    footer { text-align:center; padding:12px; font-size:.65rem; color:var(--muted); border-top:1px solid var(--border); margin-top:22px; }
+    footer { text-align:center; padding:11px; font-size:.62rem; color:var(--muted); border-top:1px solid var(--border); margin-top:20px; }
   </style>
 </head>
 <body>
@@ -166,15 +176,21 @@
 <header>
   <div>
     <h1>Portfolio Dashboard</h1>
-    <div class="h-sub">Camilo Molina &nbsp;·&nbsp; Semana 2 &nbsp;·&nbsp; 11 mayo 2026 &nbsp;·&nbsp; Rank #5</div>
+    <div class="h-sub">Camilo Molina &nbsp;·&nbsp; Semana 3 &nbsp;·&nbsp; 15 mayo 2026 &nbsp;·&nbsp; Rank #4</div>
   </div>
   <span class="tag tag-etf">ETF BASE</span>
   <span class="tag tag-stock">GROWTH</span>
-  <span class="tag tag-new">S2 NEW</span>
   <span class="tag tag-short">SHORT</span>
+  <span class="tag tag-warn">🚨 BUYING POWER -$172</span>
 </header>
 
-<!-- TICKER TAPE -->
+<!-- MARGIN CALL BANNER -->
+<div class="margin-banner">
+  <span class="icon">🚨</span>
+  <span><strong>BUYING POWER NEGATIVO: -$172.52.</strong> El portafolio está sobre-apalancado. En una cuenta real esto activa un margin call — el bróker cierra posiciones sin preguntar. Margen activo: <strong>$8,021 = 80% del net worth.</strong> No abrir nuevas posiciones hasta normalizar.</span>
+</div>
+
+<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="tradingview-widget-container">
     <div class="tradingview-widget-container__widget"></div>
@@ -185,7 +201,7 @@
       {"proName":"NASDAQ:NVDA", "title":"NVDA"},
       {"proName":"NASDAQ:TSLA", "title":"TSLA"},
       {"proName":"NASDAQ:AMD",  "title":"AMD"},
-      {"proName":"NYSE:CAT",    "title":"CAT"},
+      {"proName":"NASDAQ:CSCO", "title":"CSCO"},
       {"proName":"NYSE:LLY",    "title":"LLY"},
       {"proName":"NASDAQ:PLTR", "title":"PLTR"}
     ],"showSymbolLogo":true,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}
@@ -193,7 +209,7 @@
   </div>
 </div>
 
-<!-- ════ SUMMARY ════ -->
+<!-- ═══ SUMMARY ═══ -->
 <div class="summary">
   <div class="summary-top">
 
@@ -201,27 +217,29 @@
     <div class="metrics-col">
       <div>
         <div class="m-label">Net Worth</div>
-        <div class="m-val">$10,135.34</div>
-        <div class="m-sub up">+$135.34 &nbsp;·&nbsp; +1.35%</div>
+        <div class="m-val lg">$10,002.62</div>
+        <div class="m-sub up">+$2.62 &nbsp;·&nbsp; +0.03% total</div>
       </div>
       <hr class="div">
       <div>
-        <div class="m-label">Hoy (5/11)</div>
-        <div class="m-val up">+1.21%</div>
+        <div class="m-label">Hoy (5/15)</div>
+        <div class="m-val down">-4.61%</div>
+        <div class="m-sub" style="color:var(--muted)">Borró 3 días de ganancias</div>
       </div>
       <div>
-        <div class="m-label">Mejor posición</div>
-        <div class="m-val sm up">TSLA +9.00%</div>
-      </div>
-      <div>
-        <div class="m-label">Peor día histórico</div>
-        <div class="m-val sm down">5/7 &nbsp;-1.89%</div>
+        <div class="m-label">Pico semana</div>
+        <div class="m-val sm up">5/14 &nbsp;+4.86%</div>
       </div>
       <hr class="div">
       <div>
-        <div class="m-label">Margen activo ⚠</div>
-        <div class="m-val sm warn">$7,116.03</div>
-        <div class="m-sub warn">~41% del net worth</div>
+        <div class="m-label">Buying Power 🚨</div>
+        <div class="m-val sm crit">-$172.52</div>
+        <div class="m-sub crit">SOBRE-APALANCADO</div>
+      </div>
+      <div>
+        <div class="m-label">Margen activo 🚨</div>
+        <div class="m-val sm crit">$8,021.89</div>
+        <div class="m-sub crit">80% del net worth</div>
       </div>
       <div>
         <div class="m-label">Short reserve</div>
@@ -229,58 +247,70 @@
       </div>
     </div>
 
-    <!-- Sparkline — Semanas 1 y 2 -->
+    <!-- Sparkline — 12 puntos S1+S2+S3 -->
     <div class="spark-col">
-      <div class="spark-title">Curva de rendimiento acumulada — S1 + S2</div>
+      <div class="spark-title">Curva de rendimiento — S1 · S2 · S3 &nbsp;|&nbsp; Pico: +4.86% → Hoy: +0.03%</div>
       <!--
-        8 puntos: 5/4→5/11
-        vals: 0, -0.21, -0.78, -1.89, +0.20, +0.17, +0.14, +1.35
-        min=-1.89 max=1.35 range=3.24
-        SVG 440x88, padding x=10, usable-w=420, usable-h=68
-        X step = 420/7 = 60
-        Y = 10 + (1.35 - val)/3.24 * 68
+        12 puntos: 5/4→5/15
+        vals: 0, -0.21, -0.78, -1.89, +0.20, +0.17, +0.14, +1.35, +0.45, +3.39, +4.86, +0.03
+        min=-1.89 max=4.86 range=6.75
+        SVG 440x86  px=10  usable-w=420  usable-h=66
+        Xstep=420/11=38.18
+        Y = 10 + (4.86-val)/6.75*66
+        zero line: y=10+4.86/6.75*66=10+47.52=57.52
       -->
-      <svg class="spark-svg" viewBox="0 0 440 88" preserveAspectRatio="none">
+      <svg class="spark-svg" viewBox="0 0 440 86" preserveAspectRatio="none">
         <defs>
           <linearGradient id="g-loss" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#ef5350" stop-opacity="0.25"/>
+            <stop offset="0%" stop-color="#ef5350" stop-opacity="0.3"/>
             <stop offset="100%" stop-color="#ef5350" stop-opacity="0.03"/>
           </linearGradient>
           <linearGradient id="g-gain" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#26a69a" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#26a69a" stop-opacity="0.05"/>
+            <stop offset="0%" stop-color="#26a69a" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#26a69a" stop-opacity="0.04"/>
           </linearGradient>
         </defs>
 
-        <!-- Cero: y = 10 + 1.35/3.24*68 = 10+28.33 = 38.33 -->
-
-        <!-- Área pérdida (5/4→cross entre 5/7 y 5/8) -->
-        <!-- Cross: t=(1.89/2.09)=0.904 → x=10+3*60+0.904*60=10+180+54.25=244.25 -->
-        <polygon points="10,38.33 70,42.41 130,54.03 190,78 244.25,38.33 244.25,88 10,88"
+        <!-- Área pérdida (5/4→5/8 crossing) -->
+        <!-- cross 5/7→5/8: t=1.89/2.09=0.904  x=10+3*38.18+0.904*38.18=10+114.54+34.52=159.06 -->
+        <polygon points="10,57.52 48,59.57 86,65.19 124,76 159,57.52 159,86 10,86"
                  fill="url(#g-loss)"/>
 
-        <!-- Área ganancia (cross→5/11) -->
-        <polygon points="244.25,38.33 250,35.77 310,36.42 370,37.07 430,10 430,38.33 244.25,38.33"
+        <!-- Área ganancia (5/8→5/15) -->
+        <polygon points="159,57.52 163,55.60 201,55.89 239,56.17 277,44.26 315,52.96 353,24.22 392,10 430,57.23 430,57.52 159,57.52"
                  fill="url(#g-gain)"/>
 
-        <!-- Línea de 0% -->
-        <line x1="10" y1="38.33" x2="430" y2="38.33"
-              stroke="rgba(255,255,255,0.13)" stroke-width="1" stroke-dasharray="5,4"/>
-        <text x="432" y="41" fill="rgba(255,255,255,0.25)" font-size="8" font-family="monospace">0%</text>
+        <!-- Línea cero -->
+        <line x1="10" y1="57.52" x2="430" y2="57.52"
+              stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4,4"/>
+        <text x="432" y="60" fill="rgba(255,255,255,0.22)" font-size="8" font-family="monospace">0%</text>
+
+        <!-- Línea pico: y=10 en x=392 -->
+        <line x1="392" y1="10" x2="392" y2="76"
+              stroke="rgba(38,166,154,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="368" y="8" fill="rgba(38,166,154,0.7)" font-size="7" font-family="monospace">+4.86%</text>
 
         <!-- Línea de datos -->
-        <polyline points="10,38.33 70,42.41 130,54.03 190,78 250,35.77 310,36.42 370,37.07 430,10"
+        <polyline points="10,57.52 48,59.57 86,65.19 124,76 163,55.60 201,55.89 239,56.17 277,44.26 315,52.96 353,24.22 392,10 430,57.23"
                   fill="none" stroke="#ffb74d" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 
+        <!-- Crash final: segmento rojo -->
+        <polyline points="392,10 430,57.23"
+                  fill="none" stroke="#ef5350" stroke-width="2.5" stroke-linecap="round"/>
+
         <!-- Puntos -->
-        <circle cx="10"  cy="38.33" r="3.5" fill="#ffb74d"  stroke="#0d0f14" stroke-width="1.5"/>
-        <circle cx="70"  cy="42.41" r="3.5" fill="#ef5350"  stroke="#0d0f14" stroke-width="1.5"/>
-        <circle cx="130" cy="54.03" r="3.5" fill="#ef5350"  stroke="#0d0f14" stroke-width="1.5"/>
-        <circle cx="190" cy="78"    r="3.5" fill="#ef5350"  stroke="#0d0f14" stroke-width="1.5"/>
-        <circle cx="250" cy="35.77" r="3.5" fill="#26a69a"  stroke="#0d0f14" stroke-width="1.5"/>
-        <circle cx="310" cy="36.42" r="3.5" fill="#26a69a"  stroke="#0d0f14" stroke-width="1.5"/>
-        <circle cx="370" cy="37.07" r="3.5" fill="#26a69a"  stroke="#0d0f14" stroke-width="1.5"/>
-        <circle cx="430" cy="10"    r="5"   fill="#26a69a"  stroke="#0d0f14" stroke-width="2"/>
+        <circle cx="10"  cy="57.52" r="3"   fill="#ffb74d" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="48"  cy="59.57" r="3"   fill="#ef5350" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="86"  cy="65.19" r="3"   fill="#ef5350" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="124" cy="76"    r="3"   fill="#ef5350" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="163" cy="55.60" r="3"   fill="#26a69a" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="201" cy="55.89" r="3"   fill="#26a69a" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="239" cy="56.17" r="3"   fill="#26a69a" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="277" cy="44.26" r="3"   fill="#26a69a" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="315" cy="52.96" r="3"   fill="#26a69a" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="353" cy="24.22" r="3"   fill="#26a69a" stroke="#0d0f14" stroke-width="1.5"/>
+        <circle cx="392" cy="10"    r="5"   fill="#26a69a" stroke="#0d0f14" stroke-width="2"/>
+        <circle cx="430" cy="57.23" r="4.5" fill="#ef5350" stroke="#0d0f14" stroke-width="2"/>
       </svg>
 
       <div class="spark-meta">
@@ -292,79 +322,82 @@
         <span><span class="spark-date">5/9</span><span class="spark-pct up">+0.17%</span></span>
         <span><span class="spark-date">5/10</span><span class="spark-pct up">+0.14%</span></span>
         <span><span class="spark-date">5/11</span><span class="spark-pct up">+1.35%</span></span>
+        <span><span class="spark-date">5/12</span><span class="spark-pct up">+0.45%</span></span>
+        <span><span class="spark-date">5/13</span><span class="spark-pct up">+3.39%</span></span>
+        <span><span class="spark-date">5/14</span><span class="spark-pct up">+4.86%</span></span>
+        <span><span class="spark-date">5/15</span><span class="spark-pct down">+0.03%</span></span>
       </div>
     </div>
 
     <!-- P&L -->
     <div class="pl-col">
-      <div class="pl-title">P&L por posición</div>
-      <!-- max abs = $183.74 (TSLA) → 100% -->
-      <div class="pl-row">
-        <div class="pl-ticker">TSLA</div>
-        <div class="pl-track"><div class="pl-bar pos" style="width:100%"></div></div>
-        <div class="pl-amt up">+$183.74</div>
-        <div class="pl-pct up">+9.00%</div>
-      </div>
+      <div class="pl-title">P&L por posición · max ref $261</div>
       <div class="pl-row">
         <div class="pl-ticker">NVDA</div>
-        <div class="pl-track"><div class="pl-bar pos" style="width:78%"></div></div>
-        <div class="pl-amt up">+$143.50</div>
-        <div class="pl-pct up">+3.38%</div>
+        <div class="pl-track"><div class="pl-bar pos" style="width:100%"></div></div>
+        <div class="pl-amt up">+$261.10</div>
+        <div class="pl-pct up">+6.15%</div>
       </div>
       <div class="pl-row">
         <div class="pl-ticker">QQQ</div>
-        <div class="pl-track"><div class="pl-bar pos" style="width:50%"></div></div>
-        <div class="pl-amt up">+$91.40</div>
-        <div class="pl-pct up">+2.63%</div>
+        <div class="pl-track"><div class="pl-bar pos" style="width:27%"></div></div>
+        <div class="pl-amt up">+$69.60</div>
+        <div class="pl-pct up">+2.00%</div>
       </div>
       <div class="pl-row">
-        <div class="pl-ticker">VOO</div>
-        <div class="pl-track"><div class="pl-bar pos" style="width:6%"></div></div>
-        <div class="pl-amt up">+$11.45</div>
-        <div class="pl-pct up">+0.34%</div>
-      </div>
-      <div class="pl-row">
-        <div class="pl-ticker">CAT</div>
-        <div class="pl-track"><div class="pl-bar pos" style="width:6%"></div></div>
-        <div class="pl-amt up">+$11.26</div>
-        <div class="pl-pct up">+1.23%</div>
+        <div class="pl-ticker">TSLA</div>
+        <div class="pl-track"><div class="pl-bar pos" style="width:27%"></div></div>
+        <div class="pl-amt up">+$69.55</div>
+        <div class="pl-pct up">+3.41%</div>
       </div>
       <div class="pl-row">
         <div class="pl-ticker">LLY</div>
-        <div class="pl-track"><div class="pl-bar neg" style="width:5%"></div></div>
-        <div class="pl-amt down">-$9.71</div>
-        <div class="pl-pct down">-0.99%</div>
+        <div class="pl-track"><div class="pl-bar pos" style="width:11%"></div></div>
+        <div class="pl-amt up">+$28.22</div>
+        <div class="pl-pct up">+2.89%</div>
       </div>
       <div class="pl-row">
-        <div class="pl-ticker">AMD</div>
-        <div class="pl-track"><div class="pl-bar neg" style="width:10%"></div></div>
-        <div class="pl-amt down">-$17.84</div>
-        <div class="pl-pct down">-0.96%</div>
+        <div class="pl-ticker">CSCO</div>
+        <div class="pl-track"><div class="pl-bar pos" style="width:9%"></div></div>
+        <div class="pl-amt up">+$22.95</div>
+        <div class="pl-pct up">+1.31%</div>
+      </div>
+      <div class="pl-row">
+        <div class="pl-ticker">VOO</div>
+        <div class="pl-track"><div class="pl-bar pos" style="width:4%"></div></div>
+        <div class="pl-amt up">+$11.05</div>
+        <div class="pl-pct up">+0.33%</div>
       </div>
       <div class="pl-row">
         <div class="pl-ticker">PLTR</div>
-        <div class="pl-track"><div class="pl-bar neg" style="width:30%"></div></div>
-        <div class="pl-amt down">-$55.81</div>
-        <div class="pl-pct down">-2.61%</div>
+        <div class="pl-track"><div class="pl-bar neg" style="width:4%"></div></div>
+        <div class="pl-amt down">-$9.41</div>
+        <div class="pl-pct" style="color:var(--amber)">-0.44%↑</div>
       </div>
-      <hr class="div" style="margin:10px 0 8px">
-      <div class="pl-row" style="margin-bottom:0">
-        <div class="pl-ticker" style="font-size:.6rem;color:var(--muted)">NET</div>
+      <div class="pl-row">
+        <div class="pl-ticker" style="color:#ff4444">AMD</div>
+        <div class="pl-track"><div class="pl-bar crit-neg" style="width:60%"></div></div>
+        <div class="pl-amt crit">-$156.60</div>
+        <div class="pl-pct crit">-8.45%</div>
+      </div>
+      <hr class="div" style="margin:8px 0 7px">
+      <div class="pl-row" style="margin:0">
+        <div class="pl-ticker" style="font-size:.58rem;color:var(--muted)">NET</div>
         <div></div>
-        <div class="pl-amt up">+$135.34</div>
-        <div class="pl-pct up">+1.35%</div>
+        <div class="pl-amt up">+$2.62</div>
+        <div class="pl-pct up">+0.03%</div>
       </div>
     </div>
 
   </div>
 
-  <div class="alert-bar alert-red">
-    <span>⚠</span>
-    <span><strong>Margen en $7,116 (+115% vs S1).</strong> El portafolio opera con ~41% de capital prestado. Una corrección del 10% implica pérdida del 14-15% del capital propio. Revisar si el margen supera el 50% del net worth.</span>
-  </div>
   <div class="alert-bar alert-amber">
     <span>⚠</span>
-    <span><strong>S1 · 8 transacciones en 4 días.</strong> QQQ comprado y vendido el mismo día. PLTR short fragmentado en 3 órdenes. S2 mejoró: 3 entradas limpias, 1 orden por posición.</span>
+    <span>
+      <strong>El margen triplicó en 3 semanas:</strong> S1 $3,301 (33%) → S2 $7,116 (70%) → S3 $8,021 (80%).
+      Un solo día (-4.61%) borró +4.7% de ganancias acumuladas en 3 días.
+      <strong>Regla S4: cero posiciones nuevas hasta que buying power sea positivo.</strong>
+    </span>
   </div>
 </div>
 
@@ -372,32 +405,42 @@
 <div class="tx-wrap">
   <div class="tx-head">
     <h3>Historial de transacciones</h3>
-    <span>12 órdenes · 11 ejecutadas · 3 con ruido (S1)</span>
+    <span>14 órdenes · 13 ejecutadas · 2 limpias S3 · 3 con ruido S1</span>
   </div>
   <table class="tx-table">
     <thead>
-      <tr>
-        <th>Fecha</th><th>Activo</th><th>Tipo</th><th>Cant.</th><th>Precio</th><th>Valor</th><th>Semana</th>
-      </tr>
+      <tr><th>Fecha</th><th>Activo</th><th>Tipo</th><th>Cant.</th><th>Precio</th><th>Valor</th><th>Nota</th></tr>
     </thead>
     <tbody>
-      <tr class="new-s2">
+      <tr class="s3">
+        <td>5/14 · 10:58a</td><td><strong>CSCO</strong></td>
+        <td><span class="bb bb-buy">BUY</span></td>
+        <td>15</td><td>$116.68</td><td>$1,750.20</td>
+        <td style="color:var(--teal2)">S3 · Tech defensivo / IA networking</td>
+      </tr>
+      <tr class="s3">
+        <td>5/13 · 10:28a</td><td><strong>CAT</strong></td>
+        <td><span class="bb bb-sell">SELL</span></td>
+        <td>1</td><td>$904.64</td><td>$904.64</td>
+        <td style="color:var(--amber)">S3 · Cerrada · Pérdida -$10.90 (-1.19%)</td>
+      </tr>
+      <tr class="s2">
         <td>5/11 · 12:21p</td><td><strong>LLY</strong></td>
         <td><span class="bb bb-buy">BUY</span></td>
         <td>1</td><td>$976.70</td><td>$976.70</td>
         <td style="color:var(--orange)">S2 · Pharma / GLP-1</td>
       </tr>
-      <tr class="new-s2">
+      <tr class="s2">
         <td>5/11 · 12:20p</td><td><strong>AMD</strong></td>
         <td><span class="bb bb-buy">BUY</span></td>
         <td>4</td><td>$463.25</td><td>$1,853.00</td>
-        <td style="color:var(--orange)">S2 · Chips IA</td>
+        <td style="color:var(--orange)">S2 · Chips IA · Actualmente -8.45%</td>
       </tr>
-      <tr class="new-s2">
+      <tr class="s2">
         <td>5/11 · 12:20p</td><td><strong>CAT</strong></td>
         <td><span class="bb bb-buy">BUY</span></td>
         <td>1</td><td>$915.54</td><td>$915.54</td>
-        <td style="color:var(--orange)">S2 · Industrial</td>
+        <td style="color:var(--orange)">S2 · Abierta y cerrada · round-trip -$10.90</td>
       </tr>
       <tr>
         <td>5/8 · 10:17a</td><td><strong>VOO</strong></td>
@@ -409,19 +452,19 @@
         <td>5/7 · 12:59p</td><td><strong>TSLA</strong></td>
         <td><span class="bb bb-buy">BUY</span></td>
         <td>5</td><td>$408.33</td><td>$2,041.65</td>
-        <td style="color:var(--muted)">S1 · Momentum</td>
+        <td style="color:var(--muted)">S1</td>
       </tr>
       <tr>
         <td>5/7 · 12:58p</td><td><strong>QQQ</strong></td>
         <td><span class="bb bb-buy">BUY</span></td>
         <td>5</td><td>$695.01</td><td>$3,475.05</td>
-        <td style="color:var(--muted)">S1 · ETF base</td>
+        <td style="color:var(--muted)">S1</td>
       </tr>
       <tr>
         <td>5/7 · 12:58p</td><td><strong>NVDA</strong></td>
         <td><span class="bb bb-buy">BUY</span></td>
         <td>20</td><td>$212.27</td><td>$4,245.40</td>
-        <td style="color:var(--muted)">S1 · IA Infra</td>
+        <td style="color:var(--muted)">S1</td>
       </tr>
       <tr class="noise">
         <td>5/6 · 12:11p</td><td><strong>QQQ</strong></td>
@@ -457,28 +500,27 @@
   </table>
 </div>
 
-<!-- ════ ETF BASE ════ -->
+<!-- ETF BASE -->
 <div class="section-row"><h2>ETF Base</h2><hr></div>
 <div class="grid-2">
-
   <div class="card">
     <div class="card-header">
       <div class="cc cc-voo"></div>
       <div><div class="card-title">VOO <span class="cbadge cb-etf">ETF</span></div><div class="card-name">Vanguard S&P 500 · 5 acc · 17%</div></div>
-      <div class="card-pl"><div class="amt up">+$11.45</div><div class="pct up">+0.34%</div></div>
+      <div class="card-pl"><div class="amt up">+$11.05</div><div class="pct up">+0.33%</div></div>
     </div>
     <div class="card-body">
       <div class="wpane"><div class="pane-label">Gráfico 6M</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-          {"symbol":"AMEX:VOO","width":"100%","height":"270","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(41,98,255,1)","underLineColor":"rgba(41,98,255,0.18)","underLineBottomColor":"rgba(41,98,255,0)","isTransparent":true,"autosize":true}
+          {"symbol":"AMEX:VOO","width":"100%","height":"255","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(41,98,255,1)","underLineColor":"rgba(41,98,255,0.15)","underLineBottomColor":"rgba(41,98,255,0)","isTransparent":true,"autosize":true}
           </script>
         </div>
       </div>
       <div class="wpane"><div class="pane-label">Análisis técnico</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1D","width":"100%","height":"270","isTransparent":true,"symbol":"AMEX:VOO","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          {"interval":"1D","width":"100%","height":"255","isTransparent":true,"symbol":"AMEX:VOO","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
           </script>
         </div>
       </div>
@@ -489,50 +531,48 @@
     <div class="card-header">
       <div class="cc cc-qqq"></div>
       <div><div class="card-title">QQQ <span class="cbadge cb-etf">ETF</span></div><div class="card-name">Invesco Nasdaq 100 · 5 acc · 18%</div></div>
-      <div class="card-pl"><div class="amt up">+$91.40</div><div class="pct up">+2.63%</div></div>
+      <div class="card-pl"><div class="amt up">+$69.60</div><div class="pct up">+2.00%</div></div>
     </div>
     <div class="card-body">
       <div class="wpane"><div class="pane-label">Gráfico 6M</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-          {"symbol":"NASDAQ:QQQ","width":"100%","height":"270","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(0,188,212,1)","underLineColor":"rgba(0,188,212,0.18)","underLineBottomColor":"rgba(0,188,212,0)","isTransparent":true,"autosize":true}
+          {"symbol":"NASDAQ:QQQ","width":"100%","height":"255","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(0,188,212,1)","underLineColor":"rgba(0,188,212,0.15)","underLineBottomColor":"rgba(0,188,212,0)","isTransparent":true,"autosize":true}
           </script>
         </div>
       </div>
       <div class="wpane"><div class="pane-label">Análisis técnico</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1D","width":"100%","height":"270","isTransparent":true,"symbol":"NASDAQ:QQQ","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          {"interval":"1D","width":"100%","height":"255","isTransparent":true,"symbol":"NASDAQ:QQQ","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
           </script>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- ════ GROWTH ════ -->
+<!-- CRECIMIENTO -->
 <div class="section-row"><h2>Crecimiento</h2><hr></div>
 <div class="grid-2">
-
   <div class="card">
     <div class="card-header">
       <div class="cc cc-nvda"></div>
-      <div><div class="card-title">NVDA <span class="cbadge cb-ai">IA INFRA</span></div><div class="card-name">Nvidia · 20 acc · 23%</div></div>
-      <div class="card-pl"><div class="amt up">+$143.50</div><div class="pct up">+3.38%</div></div>
+      <div><div class="card-title">NVDA <span class="cbadge cb-ai">IA INFRA</span></div><div class="card-name">Nvidia · 20 acc · 22%</div></div>
+      <div class="card-pl"><div class="amt up">+$261.10</div><div class="pct up">+6.15% ★</div></div>
     </div>
     <div class="card-body">
       <div class="wpane"><div class="pane-label">Gráfico 6M</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-          {"symbol":"NASDAQ:NVDA","width":"100%","height":"270","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(118,255,3,1)","underLineColor":"rgba(118,255,3,0.13)","underLineBottomColor":"rgba(118,255,3,0)","isTransparent":true,"autosize":true}
+          {"symbol":"NASDAQ:NVDA","width":"100%","height":"255","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(118,255,3,1)","underLineColor":"rgba(118,255,3,0.12)","underLineBottomColor":"rgba(118,255,3,0)","isTransparent":true,"autosize":true}
           </script>
         </div>
       </div>
       <div class="wpane"><div class="pane-label">Análisis técnico</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1D","width":"100%","height":"270","isTransparent":true,"symbol":"NASDAQ:NVDA","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          {"interval":"1D","width":"100%","height":"255","isTransparent":true,"symbol":"NASDAQ:NVDA","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
           </script>
         </div>
       </div>
@@ -542,51 +582,50 @@
   <div class="card">
     <div class="card-header">
       <div class="cc cc-tsla"></div>
-      <div><div class="card-title">TSLA <span class="cbadge cb-mom">MOMENTUM</span></div><div class="card-name">Tesla · 5 acc · 11%</div></div>
-      <div class="card-pl"><div class="amt up">+$183.74</div><div class="pct up">+9.00% ★</div></div>
+      <div><div class="card-title">TSLA <span class="cbadge cb-mom">MOMENTUM</span></div><div class="card-name">Tesla · 5 acc · 10%</div></div>
+      <div class="card-pl"><div class="amt up">+$69.55</div><div class="pct up">+3.41%</div></div>
     </div>
     <div class="card-body">
       <div class="wpane"><div class="pane-label">Gráfico 6M</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-          {"symbol":"NASDAQ:TSLA","width":"100%","height":"270","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(224,64,251,1)","underLineColor":"rgba(224,64,251,0.13)","underLineBottomColor":"rgba(224,64,251,0)","isTransparent":true,"autosize":true}
+          {"symbol":"NASDAQ:TSLA","width":"100%","height":"255","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(224,64,251,1)","underLineColor":"rgba(224,64,251,0.12)","underLineBottomColor":"rgba(224,64,251,0)","isTransparent":true,"autosize":true}
           </script>
         </div>
       </div>
       <div class="wpane"><div class="pane-label">Análisis técnico</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1D","width":"100%","height":"270","isTransparent":true,"symbol":"NASDAQ:TSLA","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          {"interval":"1D","width":"100%","height":"255","isTransparent":true,"symbol":"NASDAQ:TSLA","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
           </script>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- ════ SEMANA 2 — NUEVAS POSICIONES ════ -->
-<div class="section-row"><h2>Semana 2 · Nuevas posiciones</h2><hr></div>
+<!-- DIVERSIFICACIÓN -->
+<div class="section-row"><h2>Diversificación</h2><hr></div>
 <div class="grid-3">
 
   <div class="card">
     <div class="card-header">
       <div class="cc cc-amd"></div>
-      <div><div class="card-title">AMD <span class="cbadge cb-semi">SEMI</span> <span class="cbadge cb-new">S2</span></div><div class="card-name">Advanced Micro Devices · 4 acc · 9%</div></div>
-      <div class="card-pl"><div class="amt down">-$17.84</div><div class="pct down">-0.96%</div></div>
+      <div><div class="card-title">AMD <span class="cbadge cb-semi">SEMI</span></div><div class="card-name">Advanced Micro Devices · 4 acc · 8%</div></div>
+      <div class="card-pl"><div class="amt crit">-$156.60</div><div class="pct crit">-8.45%</div></div>
     </div>
     <div class="card-body">
       <div class="wpane"><div class="pane-label">Gráfico 6M</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-          {"symbol":"NASDAQ:AMD","width":"100%","height":"270","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(255,112,67,1)","underLineColor":"rgba(255,112,67,0.13)","underLineBottomColor":"rgba(255,112,67,0)","isTransparent":true,"autosize":true}
+          {"symbol":"NASDAQ:AMD","width":"100%","height":"255","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(255,112,67,1)","underLineColor":"rgba(255,112,67,0.12)","underLineBottomColor":"rgba(255,112,67,0)","isTransparent":true,"autosize":true}
           </script>
         </div>
       </div>
       <div class="wpane"><div class="pane-label">Análisis técnico</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1D","width":"100%","height":"270","isTransparent":true,"symbol":"NASDAQ:AMD","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          {"interval":"1D","width":"100%","height":"255","isTransparent":true,"symbol":"NASDAQ:AMD","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
           </script>
         </div>
       </div>
@@ -595,22 +634,22 @@
 
   <div class="card">
     <div class="card-header">
-      <div class="cc cc-cat"></div>
-      <div><div class="card-title">CAT <span class="cbadge cb-ind">INDUSTRIAL</span> <span class="cbadge cb-new">S2</span></div><div class="card-name">Caterpillar · 1 acc · 5%</div></div>
-      <div class="card-pl"><div class="amt up">+$11.26</div><div class="pct up">+1.23%</div></div>
+      <div class="cc cc-csco"></div>
+      <div><div class="card-title">CSCO <span class="cbadge cb-net">NETWORKING</span> <span class="cbadge cb-new">S3</span></div><div class="card-name">Cisco Systems · 15 acc · 9%</div></div>
+      <div class="card-pl"><div class="amt up">+$22.95</div><div class="pct up">+1.31%</div></div>
     </div>
     <div class="card-body">
       <div class="wpane"><div class="pane-label">Gráfico 6M</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-          {"symbol":"NYSE:CAT","width":"100%","height":"270","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(0,229,255,1)","underLineColor":"rgba(0,229,255,0.13)","underLineBottomColor":"rgba(0,229,255,0)","isTransparent":true,"autosize":true}
+          {"symbol":"NASDAQ:CSCO","width":"100%","height":"255","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(0,229,255,1)","underLineColor":"rgba(0,229,255,0.12)","underLineBottomColor":"rgba(0,229,255,0)","isTransparent":true,"autosize":true}
           </script>
         </div>
       </div>
       <div class="wpane"><div class="pane-label">Análisis técnico</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1D","width":"100%","height":"270","isTransparent":true,"symbol":"NYSE:CAT","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          {"interval":"1D","width":"100%","height":"255","isTransparent":true,"symbol":"NASDAQ:CSCO","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
           </script>
         </div>
       </div>
@@ -620,21 +659,21 @@
   <div class="card">
     <div class="card-header">
       <div class="cc cc-lly"></div>
-      <div><div class="card-title">LLY <span class="cbadge cb-pharma">PHARMA</span> <span class="cbadge cb-new">S2</span></div><div class="card-name">Eli Lilly · 1 acc · 5%</div></div>
-      <div class="card-pl"><div class="amt down">-$9.71</div><div class="pct down">-0.99%</div></div>
+      <div><div class="card-title">LLY <span class="cbadge cb-pharma">PHARMA</span></div><div class="card-name">Eli Lilly · 1 acc · 5%</div></div>
+      <div class="card-pl"><div class="amt up">+$28.22</div><div class="pct up">+2.89%</div></div>
     </div>
     <div class="card-body">
       <div class="wpane"><div class="pane-label">Gráfico 6M</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-          {"symbol":"NYSE:LLY","width":"100%","height":"270","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(240,98,146,1)","underLineColor":"rgba(240,98,146,0.13)","underLineBottomColor":"rgba(240,98,146,0)","isTransparent":true,"autosize":true}
+          {"symbol":"NYSE:LLY","width":"100%","height":"255","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(240,98,146,1)","underLineColor":"rgba(240,98,146,0.12)","underLineBottomColor":"rgba(240,98,146,0)","isTransparent":true,"autosize":true}
           </script>
         </div>
       </div>
       <div class="wpane"><div class="pane-label">Análisis técnico</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1D","width":"100%","height":"270","isTransparent":true,"symbol":"NYSE:LLY","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          {"interval":"1D","width":"100%","height":"255","isTransparent":true,"symbol":"NYSE:LLY","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
           </script>
         </div>
       </div>
@@ -643,7 +682,7 @@
 
 </div>
 
-<!-- ════ PLTR SHORT — FULL WIDTH ════ -->
+<!-- PLTR SHORT -->
 <div class="section-row"><h2>Cobertura · Short</h2><hr></div>
 <div class="grid-1">
   <div class="card">
@@ -654,36 +693,41 @@
         <div class="card-name">Palantir Technologies · 16 acc short · 11%</div>
       </div>
       <div class="card-pl">
-        <div class="amt down">-$55.81</div>
-        <div class="pct" style="color:var(--amber)">-2.61% · mejorando ↑</div>
+        <div class="amt down">-$9.41</div>
+        <div class="pct up">-0.44% · casi en breakeven ↑↑</div>
       </div>
     </div>
     <div class="card-body-3">
       <div class="wpane"><div class="pane-label">Gráfico 6M</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-          {"symbol":"NASDAQ:PLTR","width":"100%","height":"270","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(239,83,80,1)","underLineColor":"rgba(239,83,80,0.13)","underLineBottomColor":"rgba(239,83,80,0)","isTransparent":true,"autosize":true}
+          {"symbol":"NASDAQ:PLTR","width":"100%","height":"255","locale":"en","dateRange":"6M","colorTheme":"dark","trendLineColor":"rgba(239,83,80,1)","underLineColor":"rgba(239,83,80,0.12)","underLineBottomColor":"rgba(239,83,80,0)","isTransparent":true,"autosize":true}
           </script>
         </div>
       </div>
       <div class="wpane"><div class="pane-label">Análisis técnico</div>
         <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {"interval":"1D","width":"100%","height":"270","isTransparent":true,"symbol":"NASDAQ:PLTR","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
+          {"interval":"1D","width":"100%","height":"255","isTransparent":true,"symbol":"NASDAQ:PLTR","showIntervalTabs":true,"locale":"en","colorTheme":"dark"}
           </script>
         </div>
       </div>
       <div class="wpane">
-        <div class="pane-label">Estado de la posición</div>
+        <div class="pane-label">Evolución del short</div>
         <div class="pos-stats">
           <div><div class="ps-label">Entrada promedio</div><div class="ps-val">$133.41</div></div>
-          <div><div class="ps-label">Precio actual</div><div class="ps-val red">$136.89</div></div>
-          <div><div class="ps-label">P&L abierto</div><div class="ps-val red">-$55.81 &nbsp;(-2.61%)</div></div>
-          <div><div class="ps-label">Vs Semana 1</div><div class="ps-val green" style="font-size:.8rem">-$70.37 → -$55.81 ↑ $14.56</div></div>
-          <div><div class="ps-label">Costo posición</div><div class="ps-val">$2,134.56</div></div>
+          <div><div class="ps-label">Precio actual</div><div class="ps-val">$133.99</div></div>
+          <div><div class="ps-label">P&L abierto</div><div class="ps-val red">-$9.41 &nbsp;(-0.44%)</div></div>
+          <div>
+            <div class="ps-label">Progreso semana a semana</div>
+            <div style="font-size:.7rem;line-height:1.8;color:var(--text)">
+              S1 &nbsp;<span style="color:var(--red)">-$70.37 (-3.30%)</span><br>
+              S2 &nbsp;<span style="color:var(--amber)">-$55.81 (-2.61%)</span><br>
+              S3 &nbsp;<span style="color:var(--green)">-$9.41 (-0.44%) ↑</span>
+            </div>
+          </div>
           <div class="ps-alert">
-            Stop: si PLTR supera <strong>$145</strong>, reevaluar la tesis.<br>
-            Señal positiva: pérdida reduciéndose semana a semana.
+            La tesis se está validando. Si PLTR baja de $133.41 la posición entra en ganancia. Stop en $145.
           </div>
         </div>
       </div>
@@ -692,7 +736,7 @@
 </div>
 
 <footer>
-  Tiempo real via TradingView &nbsp;·&nbsp; VOO · QQQ · NVDA · TSLA · AMD · CAT · LLY · PLTR &nbsp;·&nbsp; Semana 2 · 11 mayo 2026
+  Tiempo real via TradingView &nbsp;·&nbsp; VOO · QQQ · NVDA · TSLA · AMD · CSCO · LLY · PLTR &nbsp;·&nbsp; S3 · 15 mayo 2026
 </footer>
 
 </body>
