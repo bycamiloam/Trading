@@ -19,14 +19,19 @@ Repositorio personal de toma de decisiones de inversión. No es un sistema de se
 | **NVDA** | Acción Long | Convicción — infraestructura de IA | S1 |
 | **TSLA** | Acción Long | Momentum — EV + energía + FSD | S1 |
 | **AMD** | Acción Long | Chips IA — competencia directa a NVDA | S2 |
-| **CSCO** | Acción Long | Tech defensivo — networking para IA | S3 |
+| **CSCO** | Acción Long | Tech defensivo — networking para IA | S2 |
 | **LLY** | Acción Long | Pharma — GLP-1/obesidad, mercado $150B+ | S2 |
-| **PLTR** | Acción Short | Cobertura anticíclica — defensa / gobierno | S1 |
-| ~~CAT~~ | ~~Long~~ | ~~Cerrada 5/13 con -$10.90~~ | ~~S2→S3~~ |
+| **TQQQ** | ETF Long 3x | Táctico — amplificador post sell-the-news NVDA | S3 |
+| ~~PLTR~~ | ~~Short~~ | ~~Cerrada 5/21 · -$100 neto · upgrades institucionales~~ | ~~S1→S3~~ |
+| ~~CAT~~ | ~~Long~~ | ~~Cerrada 5/13 · -$30.90 neto (trade + comisión)~~ | ~~S2~~ |
 
 ## Dashboard
 
-El archivo `dashboard.html` no requiere servidor ni dependencias. Abre directamente en el navegador:
+El archivo `dashboard.html` no requiere servidor ni dependencias. Abre directamente en el navegador.
+
+**Juego vigente:** MarketWatch VSE · 452026EANBOLSA · Cierre el **29 mayo 2026**
+
+
 
 ```bash
 # Linux
@@ -75,21 +80,42 @@ La tesis central de este repositorio es que **la disciplina de no operar** es ta
 | Margen activo | $7,116.03 (~70% del net worth) ⚠ |
 | Rank | #5 |
 
-### Semana 3 (12–15 mayo 2026 · en curso)
+### Semana 2 (11–15 mayo 2026 · cerrada)
 
 | Métrica | Valor |
 |---------|-------|
-| Net Worth | $10,002.62 |
+| Net Worth cierre | $10,002.62 |
 | Retorno total | +0.03% (+$2.62) |
-| Pico alcanzado | $10,485.77 (+4.86%) el 5/14 |
-| Caída hoy | -4.61% — borró 3 días de ganancias |
+| Pico de la semana | $10,485.77 (+4.86%) el 5/14 |
+| Peor día | -4.61% el 5/15 — borró 3 días de ganancias |
 | Mejor posición | NVDA +6.15% |
 | Peor posición | AMD -8.45% |
-| PLTR short | -0.44% — casi en breakeven |
-| Operaciones S3 | 2 — CAT vendida, CSCO comprada |
+| Operaciones S2 | 4 — AMD, CAT, LLY (11/5) + CSCO comprada (14/5) |
 | Margen activo | $8,021.89 (~80% del net worth) 🚨 |
-| Buying Power | **-$172.52** 🚨 SOBRE-APALANCADO |
+| Buying Power | **-$172.52** 🚨 |
 | Rank | #4 |
+
+### Semana 3 (18–22 mayo 2026 · cerrada)
+
+| Métrica | Valor |
+|---------|-------|
+| Net Worth cierre | ~$10,200 |
+| Retorno total | +2.00% (+$200) |
+| Mínimo histórico | $9,642.19 (-3.58%) el 5/18 |
+| Mejor posición | LLY ★ mejor % de la semana |
+| AMD | Recuperado a positivo desde -8.45% |
+| PLTR short | Cerrada el 5/21 · pérdida neta -$100 |
+| TQQQ | Abierta el 5/21 · 3x Nasdaq · táctica post-earnings |
+| Operaciones S3 | 2 — PLTR cerrada, TQQQ abierta |
+| Buying Power | Normalizado tras cierre del short |
+| Rank | #4 |
+
+### Semana 4 (25–29 mayo 2026 · en curso · última semana)
+
+| Métrica | Valor |
+|---------|-------|
+| Objetivo | Cerrar >+5% de retorno total |
+| Pendiente | Cerrar TQQQ antes del 29/5 |
 
 ---
 
