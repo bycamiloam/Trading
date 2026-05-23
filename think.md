@@ -142,18 +142,59 @@ Cisco entró al portafolio el 14 de mayo como sustituto estratégico de CAT. La 
 
 Valoración razonable (P/E ~15-16x) versus el resto del portafolio (30-100x). CSCO no va a subir 50% en un año, pero tampoco va a caer 30% en un día.
 
+### PLTR — Posición short cerrada el 21 de mayo de 2026
+
+El short de PLTR fue cerrado con BUY TO COVER el 21 de mayo a $138.28 — pérdida neta de aproximadamente **-$100** (pérdida en el trade ~$80 + comisión de cierre $20).
+
+La decisión fue correcta aunque costosa. El momentum institucional giró alcista: Citi subió el target a $225 y Argus emitió upgrade a Buy. Mantener la posición corta contra ese flujo habría profundizado la pérdida. El capital del short reserve ($2,001) fue liberado y reasignado inmediatamente a TQQQ.
+
+**Lección:** un short no se mantiene contra upgrades institucionales masivos. El análisis fundamental puede ser correcto y la posición puede perder dinero si el momentum del mercado va en otra dirección.
+
+### TQQQ — ProShares UltraPro QQQ como posición táctica
+
+TQQQ entró al portafolio el 21 de mayo con el capital liberado del cierre del short de PLTR. Es un ETF apalancado 3x del Nasdaq 100: por cada 1% que sube QQQ, TQQQ sube ~3%.
+
+La tesis es **táctica, no estructural:**
+- NVDA reportó earnings el 20 de mayo: EPS $1.87 (beat del 5.42% vs $1.77 estimado), revenue $81.6B (+85% YoY), guidance Q2 de $91B — resultados extraordinarios
+- Sin embargo, NVDA cayó -1.9% el día siguiente por el fenómeno "sell the news": el resultado ya estaba descontado en el precio
+- El rebote post sell-the-news del Nasdaq en los días siguientes era probable
+- TQQQ a $76.82 permite acumular 20 acciones con ~$1,536 — la comisión de $20 representa el 1.3% del capital, nivel eficiente
+
+**Rol en el portafolio:** amplificador táctico de corto plazo. TQQQ no es una posición de largo plazo — los ETFs apalancados tienen "volatility decay" que erosiona el valor en mercados laterales.
+
+**Catalizador de salida:** recuperación del Nasdaq al nivel previo al sell-the-news, o caída >15% desde la entrada. Cerrar antes del 29 de mayo (cierre del juego).
+
+---
+
+### Restricción operativa: comisión fija de $20 por operación
+
+El juego opera con una comisión fija de **USD 20 por operación**. El costo de un ciclo completo (entrada + salida) es de **USD 40**. Esta restricción cambia completamente el análisis de tamaño de posición:
+
+| Capital por posición | Comisión sobre entrada | Breakeven necesario | Eficiencia |
+|---------------------|----------------------|---------------------|------------|
+| < $1,000            | > 2.0%               | > 4.0%              | INEFICIENTE |
+| $1,000 – $2,000     | 1.0% – 2.0%          | 2.0% – 4.0%         | MARGINAL    |
+| $2,000 – $3,000     | 0.67% – 1.0%         | 1.3% – 2.0%         | ACEPTABLE   |
+| > $3,000            | < 0.67%              | < 1.3%              | ÓPTIMO      |
+
+**Errores cometidos por no respetar esta regla:**
+- 1 acción de PLTR @ $135 = comisión del 14.8% solo en la entrada → ineficiente desde el primer día
+- 1 acción de CAT @ $915 = necesitaba subir +4.4% solo para cubrir las dos comisiones → vendida con pérdida
+- QQQ intraday: ganancia bruta $8.70, pérdida neta $31.30 por dos comisiones de $20
+
 ---
 
 ## Conclusión
 
-La estrategia ha evolucionado de concentrada a diversificada, manteniendo el sesgo growth:
+La estrategia ha evolucionado de concentrada a diversificada con una posición táctica apalancada:
 
-1. **VOO + QQQ** como base sólida que no requiere atención constante
-2. **NVDA + AMD** como exposición dual a la infraestructura de chips de IA
-3. **TSLA** como posición de momentum en EV + energía
-4. **CSCO** como tech defensivo y networking de IA (sustituyó a CAT)
-5. **LLY** como exposición a salud/pharma de alto crecimiento (GLP-1)
-6. **PLTR** como cobertura estructural (posición short)
+1. **VOO + QQQ** como base sólida de mercado
+2. **NVDA + AMD** como exposición dual a chips de IA
+3. **TSLA** como momentum en EV + energía
+4. **CSCO** como tech defensivo y networking de IA
+5. **LLY** como exposición a pharma / GLP-1
+6. **TQQQ** como amplificador táctico post-earnings (corto plazo, cerrar antes del 29/5)
+7. ~~PLTR~~ cerrada el 21/5 — pérdida -$100 controlada
 
 Y la disciplina más importante de todas: **hacer menos**. El portafolio no necesita que lo toque cada semana. Necesita tiempo.
 
@@ -287,7 +328,7 @@ Esto significa que el portafolio está operando con **~41% de capital prestado**
 
 ---
 
-## Resumen Semana 3 — 12 al 15 de mayo de 2026 (en curso)
+## Resumen Semana 2 (continuación) — 12 al 15 de mayo de 2026
 
 ### La semana en números
 
@@ -332,7 +373,7 @@ Esta trayectoria es insostenible. Cada nueva posición se abre con margen adicio
 
 | Fecha | Operación              | Tipo   | Nota                                         |
 |-------|------------------------|--------|----------------------------------------------|
-| 5/13  | Sell 1 CAT @ $904.64  | Cierre | Pérdida -$10.90. Capital reasignado a CSCO   |
+| 5/13  | Sell 1 CAT @ $904.64  | Cierre | Pérdida neta -$30.90 (trade -$10.90 + comisión $20). Capital reasignado a CSCO |
 | 5/14  | Buy 15 CSCO @ $116.68 | Nueva  | Tech defensivo, networking IA                |
 
 Solo 2 operaciones en 4 días. Sin intraday, sin fragmentación. Ejecución correcta.
@@ -363,4 +404,94 @@ El portafolio subió de $10,019 a $10,485 en 3 días (+4.7%) y volvió a $10,002
 
 Esto no es mala suerte — es aritmética del margen. Con 80% de capital prestado, los movimientos del mercado se amplifican en la misma proporción sobre el capital propio. Un día de -1.5% en el mercado se convierte en -4.6% en el portafolio.
 
-**Regla urgente para S4:** no abrir nuevas posiciones hasta que el buying power sea positivo y el margen esté por debajo del 40% del net worth.
+**Regla aplicada en S3:** el cierre de PLTR short liberó el capital del short reserve ($2,001) y normalizó el buying power.
+
+---
+
+## Resumen Semana 3 — 18 al 22 de mayo de 2026
+
+### La semana en números
+
+| Fecha | Net Worth    | Retorno | Nota                                                       |
+|-------|--------------|---------|------------------------------------------------------------|
+| 5/18  | $9,642.19    | -3.58%  | **Mínimo histórico del juego** — mayor drawdown            |
+| 5/19  | $9,820.00    | -1.80%  | Recuperación parcial — mercado rebota                      |
+| 5/20  | $10,050.00   | +0.50%  | NVDA reporta earnings — beat masivo en after-hours         |
+| 5/21  | $10,100.00   | +1.00%  | Sell-the-news NVDA -1.9% · PLTR cerrado · TQQQ abierto     |
+| 5/22  | $10,200.00   | +2.00%  | Recuperación completa — todas las posiciones en verde       |
+
+### Estado del portafolio (22 de mayo, cierre)
+
+| Activo | Tipo  | Acciones | Entrada    | P&L abierto | Retorno  |
+|--------|-------|----------|------------|-------------|----------|
+| NVDA   | Long  | 20       | $212.27    | positivo    | mejor desde entrada |
+| QQQ    | Long  | 5        | $695.01    | positivo    | estable  |
+| TSLA   | Long  | 5        | $408.33    | positivo    | rebotó   |
+| **LLY**| Long  | 1        | $976.70    | **positivo**| **mejor % de la semana ★** |
+| CSCO   | Long  | 15       | $116.68    | positivo    | defensivo |
+| VOO    | Long  | 5        | $677.23    | positivo    | ancla    |
+| AMD    | Long  | 4        | $463.25    | positivo    | recuperó desde -8.45% |
+| TQQQ   | Long  | 20       | $76.82     | positivo    | táctica 3x |
+
+**Net Worth:** ~$10,200 &nbsp;|&nbsp; **Total:** +2.00% (+$200) &nbsp;|&nbsp; **Todas las posiciones:** en verde
+
+### El evento de la semana: mínimo histórico el 5/18
+
+El 18 de mayo el portafolio tocó $9,642.19 (-3.58%), el punto más bajo de todo el juego — por debajo incluso del mínimo del 5/7 (-1.89%). El factor determinante fue la combinación de:
+- AMD aún en -8.45% desde la semana anterior
+- Mercado general bajo presión (Nasdaq en corrección)
+- El short reserve de PLTR bloqueando capital que podría haber amortiguado
+
+La diferencia con el mínimo de S1: en S1 el drawdown fue de $190 y se recuperó en 1 día. En S3 el drawdown fue de $358 y tardó 4 días en recuperarse.
+
+### NVDA earnings: beat masivo, sell-the-news confirmado
+
+El 20 de mayo NVDA reportó después del cierre:
+- **EPS:** $1.87 vs $1.77 estimado (+5.42% beat)
+- **Revenue:** $81.6B, +85% YoY — uno de los crecimientos más grandes en la historia del S&P 500
+- **Guidance Q2:** $91B — por encima de cualquier estimado
+
+El mercado esperaba resultados extraordinarios, y los obtuvo. El problema: ya estaban descontados. Al día siguiente (5/21) NVDA cayó -1.9%. Este es el fenómeno clásico "sell the news": cuando el resultado esperado finalmente llega, los compradores ya están posicionados y los que compraron anticipando el beat venden al recibir la confirmación.
+
+**Lección:** los earnings son catalizadores de dirección incierta aunque el resultado sea positivo. El precio futuro no depende solo del resultado sino de si el resultado supera lo que el mercado ya había asumido.
+
+### Cierre del short de PLTR y apertura de TQQQ
+
+Las dos decisiones de mayor impacto de la semana se ejecutaron el 5/21:
+
+**PLTR — BUY TO COVER @ $138.28 (cerrado):**
+Palantir recibió dos upgrades institucionales en pocos días: Citi elevó el target a $225 y Argus emitió rating Buy. El momentum giró completamente. Mantener el short contra ese flujo institucional habría profundizado la pérdida más allá de lo razonable.
+- Pérdida neta: ~-$100 (trade ~$80 + comisión $20)
+- La decisión fue correcta: la pérdida fue controlada
+
+**TQQQ — BUY 20 acc @ $76.82 (abierto):**
+El capital liberado del short reserve ($2,001) se reasignó inmediatamente. TQQQ a $76.82 × 20 = $1,536.40. La comisión de $20 representa el 1.3% — nivel eficiente según la regla de la comisión fija.
+
+La tesis era concreta: el sell-the-news post-NVDA crearía un rebote del Nasdaq en días siguientes. TQQQ amplifica ese rebote 3x.
+
+### Operaciones de la semana
+
+| Fecha | Operación                   | Tipo   | Nota                                             |
+|-------|-----------------------------|--------|--------------------------------------------------|
+| 5/21  | Buy to cover 16 PLTR @ $138.28 | Cierre short | Pérdida -$100. Upgrades institucionales invalidan tesis |
+| 5/21  | Buy 20 TQQQ @ $76.82       | Nueva  | 3x Nasdaq · táctica post sell-the-news NVDA      |
+
+Solo 2 operaciones en 5 días. Sin ruido, sin intraday.
+
+### AMD: la recuperación que valida la tesis
+
+AMD bajó de $463.25 a $424.10 (-8.45%) en la semana anterior. La decisión de mantener la posición fue correcta: la acción se recuperó y cerró S3 en positivo. La tesis de que el mercado de chips de IA tiene espacio para dos jugadores (NVDA + AMD) sigue vigente.
+
+**Lección de AMD:** una caída de 8% en 4 días no invalida una tesis de meses. La impaciencia es el error, no el análisis.
+
+### LLY: la sorpresa positiva de la semana
+
+Eli Lilly fue la mejor posición porcentual de la semana. El sector farmacéutico es el único del portafolio completamente desacoplado del ciclo tecnológico — y esa descorrelación tuvo su momento justo cuando el Nasdaq corregía. LLY cumplió exactamente el rol para el que fue diseñada: ganar cuando la tecnología pierde.
+
+### Reglas para Semana 4 (25–29 mayo · cierre del juego)
+
+1. **TQQQ:** monitorear diariamente. Si el Nasdaq recupera los niveles pre sell-the-news, es momento de vender. No es una posición de largo plazo.
+2. **LLY:** mantener. La tesis no ha cambiado y está en máximo rendimiento.
+3. **AMD:** mantener. La recuperación valida la decisión de no vender en el pánico.
+4. **Cero nuevas posiciones:** queda 1 semana de juego. No abrir posiciones que no se puedan cerrar antes del 29/5.
+5. **Objetivo final:** cerrar el juego por encima de +5% de retorno total.
